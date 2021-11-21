@@ -12,6 +12,10 @@ cell_number=20
 fps=30
 clock=pygame.time.Clock()
 
+
+
+
+
 class FRUIT:
     def __init__(self):
         self.x=random.randint(0,cell_number-1)
@@ -20,7 +24,8 @@ class FRUIT:
 
     def draw_fruit(self):
         fruit_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,cell_size,cell_size)
-        pygame.draw.rect(gameScreen,(0,0,0), fruit_rect)
+        gameScreen.blit(apple,fruit_rect)
+        # pygame.draw.rect(gameScreen,(0,0,0), fruit_rect)
 
     def randonize(self):
         self.x=random.randint(0,cell_number-1)
@@ -52,6 +57,14 @@ class SNAKE:
     def grow(self):
         self.new_block=True
 
+    # def check_fail(self):
+    #     if not 0 <= self.body[0] <= 20:
+    #         self.game_over()
+
+    def game_over(self):
+        pygame.quit()
+
+
 
 class RULES:
     def __init__(self):
@@ -61,8 +74,10 @@ class RULES:
     def update(self):
         self.snake.move_snake()
         self.snackTime()
+        # self.snake.check_fail()
 
     def draw_elements(self):
+            self.grass()
             self.fruit.draw_fruit()
             self.snake.draw_snake()
 
@@ -70,10 +85,23 @@ class RULES:
         if self.fruit.pos == self.snake.body[0]:
             self.fruit.randonize()
             self.snake.grow()
+    def grass(self):
+        grass_color=(160,210,60)
+        for row in range(cell_number):
+            if row % 2==0:
+                for col in range(cell_number):
+                    if col % 2==0:
+                        grass_rect=pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)
+                        pygame.draw.rect(gameScreen,grass_color,grass_rect)
+            else:
+                for col in range(cell_number):
+                    if col % 2!=0:
+                        grass_rect=pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)
+                        pygame.draw.rect(gameScreen,grass_color,grass_rect)
 
 pygame.init()
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
-
+apple=pygame.image.load('images/apple.png').convert_alpha()
 main_game=RULES()
 # main game loop
 screenUpdate=pygame.USEREVENT
@@ -95,7 +123,7 @@ while True:
                 main_game.snake.direction=Vector2(-1,0)
 
 
-    gameScreen.fill((120,120,120))
+    gameScreen.fill((147,205,58))
     main_game.draw_elements()
     pygame.display.update()
     clock.tick(fps)
