@@ -22,6 +22,12 @@ class FRUIT:
         fruit_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,cell_size,cell_size)
         pygame.draw.rect(gameScreen,(0,0,0), fruit_rect)
 
+    def randonize(self):
+        self.x=random.randint(0,cell_number-1)
+        self.y=random.randint(0,cell_number-1)
+        self.pos=Vector2(self.x, self.y)
+
+
 class SNAKE:
     def __init__(self):
         self.body=[Vector2(4,4),Vector2(5,4),Vector2(6,4)]
@@ -36,6 +42,11 @@ class SNAKE:
         body_copy.insert(0,body_copy[0] + self.direction)
         self.body=body_copy[:]
 
+    def grow(self):
+        body_copy=self.body[:+1]
+        self.body=body_copy[:]
+
+
 class RULES:
     def __init__(self):
         self.fruit=FRUIT()
@@ -43,10 +54,16 @@ class RULES:
 
     def update(self):
         self.snake.move_snake()
+        self.snackTime()
 
     def draw_elements(self):
             self.fruit.draw_fruit()
             self.snake.draw_snake()
+
+    def snackTime(self):
+        if self.fruit.pos == self.snake.body[0]:
+            self.fruit.randonize()
+            self.snake.grow()
 
 pygame.init()
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
