@@ -32,6 +32,10 @@ class SNAKE:
             snake_rect=pygame.Rect(block.x*cell_size, block.y*cell_size,cell_size,cell_size)
             pygame.draw.rect(gameScreen, (8,8,8), snake_rect)
 
+    def move_snake(self):
+        body_copy=self.body[:-1]
+        body_copy.insert(0,body_copy[0] + self.direction)
+        self.body=body_copy[:]
 
 
 pygame.init()
@@ -46,6 +50,17 @@ while True:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             pygame.quit()
+        if event.type==screenUpdate:
+            snake.move_snake()
+        if event.type==pygame.KEYDOWN:
+            if event.key==pygame.K_UP:
+                snake.direction=Vector2(0,-1)
+            if event.key==pygame.K_DOWN:
+                snake.direction=Vector2(0,1)
+            if event.key==pygame.K_RIGHT:
+                snake.direction=Vector2(1,0)
+            if event.key==pygame.K_LEFT:
+                snake.direction=Vector2(-1,0)
 
 
     gameScreen.fill((120,120,120))
