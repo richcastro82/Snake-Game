@@ -12,7 +12,6 @@ cell_number=20
 fps=30
 clock=pygame.time.Clock()
 
-
 class FRUIT:
     def __init__(self):
         self.x=random.randint(0,cell_number-1)
@@ -24,27 +23,33 @@ class FRUIT:
         pygame.draw.rect(gameScreen,(0,0,0), fruit_rect)
 
 
+class SNAKE:
+    def __init__(self):
+        self.body=[Vector2(4,4),Vector2(5,4),Vector2(6,4)]
+        self.direction=Vector2(1,0)
+    def draw_snake(self):
+        for block in self.body:
+            snake_rect=pygame.Rect(block.x*cell_size, block.y*cell_size,cell_size,cell_size)
+            pygame.draw.rect(gameScreen, (8,8,8), snake_rect)
 
 
 
 pygame.init()
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
 
-
 fruit=FRUIT()
-# snake=SNAKE()
+snake=SNAKE()
 # main game loop
-
 screenUpdate=pygame.USEREVENT
 pygame.time.set_timer(screenUpdate, 150)
 while True:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             pygame.quit()
-        # if event.type==screenUpdate:
-        #     snake.move_snake()
+
+
     gameScreen.fill((120,120,120))
     fruit.draw_fruit()
-    # snake.draw_snake()
+    snake.draw_snake()
     pygame.display.update()
     clock.tick(fps)
