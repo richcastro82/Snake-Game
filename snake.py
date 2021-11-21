@@ -32,19 +32,25 @@ class SNAKE:
     def __init__(self):
         self.body=[Vector2(4,4),Vector2(5,4),Vector2(6,4)]
         self.direction=Vector2(1,0)
+        self.new_block=False
     def draw_snake(self):
         for block in self.body:
             snake_rect=pygame.Rect(block.x*cell_size, block.y*cell_size,cell_size,cell_size)
             pygame.draw.rect(gameScreen, (8,8,8), snake_rect)
 
     def move_snake(self):
-        body_copy=self.body[:-1]
-        body_copy.insert(0,body_copy[0] + self.direction)
-        self.body=body_copy[:]
+        if self.new_block==True:
+            body_copy=self.body[:]
+            body_copy.insert(0,body_copy[0] + self.direction)
+            self.body=body_copy[:]
+            self.new_block=False
+        else:
+            body_copy=self.body[:-1]
+            body_copy.insert(0,body_copy[0] + self.direction)
+            self.body=body_copy[:]
 
     def grow(self):
-        body_copy=self.body[:+1]
-        self.body=body_copy[:]
+        self.new_block=True
 
 
 class RULES:
