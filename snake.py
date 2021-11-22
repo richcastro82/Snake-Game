@@ -10,10 +10,6 @@ from pygame.math import Vector2
 cell_size=40
 cell_number=20
 fps=30
-clock=pygame.time.Clock()
-
-
-
 
 
 class FRUIT:
@@ -32,16 +28,34 @@ class FRUIT:
         self.y=random.randint(0,cell_number-1)
         self.pos=Vector2(self.x, self.y)
 
-
 class SNAKE:
     def __init__(self):
         self.body=[Vector2(4,4),Vector2(5,4),Vector2(6,4)]
         self.direction=Vector2(1,0)
         self.new_block=False
+        self.head_up=pygame.image.load('image/head_up.png').convert_alpha()
+        self.head_down=pygame.image.load('image/head_down.png').convert_alpha()
+        self.head_left=pygame.image.load('image/head_left.png').convert_alpha()
+        self.head_right=pygame.image.load('image/head_right.png').convert_alpha()
+        self.tail_up=pygame.image.load('image/tail_up.png').convert_alpha()
+        self.tail_down=pygame.image.load('image/tail_down.png').convert_alpha()
+        self.tail_left=pygame.image.load('image/tail_left.png').convert_alpha()
+        self.tail_right=pygame.image.load('image/tail_right.png').convert_alpha()
+        self.body_vert=pygame.image.load('image/body_vertical.png').convert_alpha()
+        self.body_hort=pygame.image.load('image/body_horizontal.png').convert_alpha()
+        
+
+
     def draw_snake(self):
-        for block in self.body:
-            snake_rect=pygame.Rect(block.x*cell_size, block.y*cell_size,cell_size,cell_size)
-            pygame.draw.rect(gameScreen, (8,8,8), snake_rect)
+        for index, block in enumerate(self.body):
+
+
+
+
+
+        # for block in self.body:
+        #     snake_rect=pygame.Rect(block.x*cell_size, block.y*cell_size,cell_size,cell_size)
+        #     pygame.draw.rect(gameScreen, (8,8,8), snake_rect)
 
     def move_snake(self):
         if self.new_block==True:
@@ -64,8 +78,6 @@ class SNAKE:
     def game_over(self):
         pygame.quit()
 
-
-
 class RULES:
     def __init__(self):
         self.fruit=FRUIT()
@@ -85,6 +97,7 @@ class RULES:
         if self.fruit.pos == self.snake.body[0]:
             self.fruit.randonize()
             self.snake.grow()
+
     def grass(self):
         grass_color=(160,210,60)
         for row in range(cell_number):
@@ -99,14 +112,17 @@ class RULES:
                         grass_rect=pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)
                         pygame.draw.rect(gameScreen,grass_color,grass_rect)
 
+
+clock=pygame.time.Clock()
 pygame.init()
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
 apple=pygame.image.load('images/apple.png').convert_alpha()
 main_game=RULES()
-# main game loop
 screenUpdate=pygame.USEREVENT
 pygame.time.set_timer(screenUpdate, 150)
+
 while True:
+
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             pygame.quit()
