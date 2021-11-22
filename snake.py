@@ -33,21 +33,33 @@ class SNAKE:
         self.body=[Vector2(4,4),Vector2(5,4),Vector2(6,4)]
         self.direction=Vector2(1,0)
         self.new_block=False
-        self.head_up=pygame.image.load('image/head_up.png').convert_alpha()
-        self.head_down=pygame.image.load('image/head_down.png').convert_alpha()
-        self.head_left=pygame.image.load('image/head_left.png').convert_alpha()
-        self.head_right=pygame.image.load('image/head_right.png').convert_alpha()
-        self.tail_up=pygame.image.load('image/tail_up.png').convert_alpha()
-        self.tail_down=pygame.image.load('image/tail_down.png').convert_alpha()
-        self.tail_left=pygame.image.load('image/tail_left.png').convert_alpha()
-        self.tail_right=pygame.image.load('image/tail_right.png').convert_alpha()
-        self.body_vert=pygame.image.load('image/body_vertical.png').convert_alpha()
-        self.body_hort=pygame.image.load('image/body_horizontal.png').convert_alpha()
-        
+        self.head_up=pygame.image.load('Images/head_up.png').convert_alpha()
+        self.head_down=pygame.image.load('Images/head_down.png').convert_alpha()
+        self.head_left=pygame.image.load('Images/head_left.png').convert_alpha()
+        self.head_right=pygame.image.load('Images/head_right.png').convert_alpha()
+        self.tail_up=pygame.image.load('Images/tail_up.png').convert_alpha()
+        self.tail_down=pygame.image.load('Images/tail_down.png').convert_alpha()
+        self.tail_left=pygame.image.load('Images/tail_left.png').convert_alpha()
+        self.tail_right=pygame.image.load('Images/tail_right.png').convert_alpha()
+        self.body_vert=pygame.image.load('Images/body_vertical.png').convert_alpha()
+        self.body_hori=pygame.image.load('Images/body_horizontal.png').convert_alpha()
+        self.body_tr=pygame.image.load('Images/body_tr.png').convert_alpha()
+        self.body_tl=pygame.image.load('Images/body_tl.png').convert_alpha()
+        self.body_br=pygame.image.load('Images/body_br.png').convert_alpha()
+        self.body_bl=pygame.image.load('Images/body_bl.png').convert_alpha()
+
 
 
     def draw_snake(self):
         for index, block in enumerate(self.body):
+            x_pos=int(block.x*cell_size)
+            y_pos=int(block.y*cell_size)
+            block_rect=pygame.Rect(x_pos, y_pos, cell_size,cell_size)
+
+            if index==0:
+                gameScreen.blit(self.head_right, block_rect)
+            else:
+                pygame.draw.rect(gameScreen, (150,100,100),block_rect),
 
 
 
