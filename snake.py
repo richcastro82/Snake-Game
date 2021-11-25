@@ -69,7 +69,7 @@ class SNAKE:
                     gameScreen.blit(self.body_vert, block_rect)
                 elif previous_block.y==next_block.y:
                     gameScreen.blit(self.body_hori, block_rect)
-                else
+
 
 
     def update_snake_head(self):
@@ -105,9 +105,6 @@ class SNAKE:
     def grow(self):
         self.new_block=True
 
-    # def check_fail(self):
-    #     if not 0 <= self.body[0] <= 20:
-    #         self.game_over()
 
     def game_over(self):
         pygame.quit()
@@ -120,6 +117,7 @@ class RULES:
     def update(self):
         self.snake.move_snake()
         self.snackTime()
+        self.check_fail()
         # self.snake.check_fail()
 
     def draw_elements(self):
@@ -131,6 +129,14 @@ class RULES:
         if self.fruit.pos == self.snake.body[0]:
             self.fruit.randonize()
             self.snake.grow()
+    def check_fail(self):
+        # 1. check if snake head has hit the border edge
+        if not 0<=self.snake.body[0].x <=cell_number:
+            pygame.quit()
+        elif not 0<=self.snake.body[0].y<=cell_number:
+            pygame.quit()
+
+        # 2. check if snake head has hit the snake body
 
 
     def grass(self):
