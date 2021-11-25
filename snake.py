@@ -10,7 +10,7 @@ from pygame.math import Vector2
 cell_size=40
 cell_number=20
 fps=30
-game_font=pygame.font.Font(None, 24)
+# game_font=pygame.font.Font(None, 24)
 
 
 
@@ -34,7 +34,7 @@ class FRUIT:
 class SNAKE:
     def __init__(self):
         self.body=[Vector2(4,4),Vector2(5,4),Vector2(6,4)]
-        self.direction=Vector2(1,0)
+        self.direction=Vector2(-1,0)
         self.new_block=False
         self.head_up=pygame.image.load('Images/head_up.png').convert_alpha()
         self.head_down=pygame.image.load('Images/head_down.png').convert_alpha()
@@ -51,8 +51,6 @@ class SNAKE:
         self.body_br=pygame.image.load('Images/body_br.png').convert_alpha()
         self.body_bl=pygame.image.load('Images/body_bl.png').convert_alpha()
 
-
-
     def draw_snake(self):
         self.update_snake_head()
 
@@ -62,20 +60,18 @@ class SNAKE:
             block_rect=pygame.Rect(x_pos, y_pos, cell_size,cell_size)
 
             if index==0:
-                gameScreen.blit(self.head_up, block_rect)
+                gameScreen.blit(self.head, block_rect)
             else:
-                pygame.draw.rect(gameScreen, (150,100,100),block_rect),
+                pygame.draw.rect(gameScreen, (255,100,100),block_rect),
 
     def update_snake_head(self):
-        heads = self.body[1] - self.body[0]
-        if heads == Vector2(1,0):
-            self.head = self.head_left
-        elif heads == Vector2(-1,0):
-            self.head = self.head_right
-        elif heads == Vector2(0,1):
-            self.head = self.head_up
-        elif heads == Vector2(0,-1):
-            self.head = self.head_down
+        head_position=self.body[1]-self.body[0]
+        if head_position==Vector2(1,0):self.head=self.head_left
+        elif head_position==Vector2(-1,0):self.head=self.head_right
+        elif head_position==Vector2(0,1):self.head=self.head_up
+        elif head_position==Vector2(0,-1):self.head=self.head_down
+
+
 
 
 
@@ -142,8 +138,6 @@ class RULES:
 
 
 
-
-
 clock=pygame.time.Clock()
 pygame.init()
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
@@ -151,8 +145,6 @@ apple=pygame.image.load('images/apple.png').convert_alpha()
 main_game=RULES()
 screenUpdate=pygame.USEREVENT
 pygame.time.set_timer(screenUpdate, 150)
-
-
 
 def main():
     while True:
