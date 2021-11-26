@@ -7,8 +7,7 @@ gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size
 apple=pygame.image.load('assets/apple.png').convert_alpha()
 poison=pygame.image.load('assets/poison.png').convert_alpha()
 
-
-
+# Button Class
 class BUTTON:
     def __init__(self, color, x, y, width, height, text=""):
         self.color=color
@@ -31,9 +30,6 @@ class BUTTON:
             if pos[1]>self.y and pos[1]<self.y+self.height:
                 return True
         return False
-
-
-
 
 # Fruit class
 class FRUIT:
@@ -98,6 +94,15 @@ class SNAKE:
                     gameScreen.blit(self.body_vert, block_rect)
                 elif previous_block.y==next_block.y:
                     gameScreen.blit(self.body_hori, block_rect)
+                else:
+                    if previous_block.x==-1 and next_block.y==-1 or previous_block.y==-1 and next_block.x==-1:
+                        gameScreen.blit(self.body_tl, block_rect)
+                    elif previous_block.x==-1 and next_block.y==1 or previous_block.y==1 and next_block.x==-1:
+                        gameScreen.blit(self.body_bl, block_rect)
+                    elif previous_block.x==1 and next_block.y==-1 or previous_block.y==-1 and next_block.x==1:
+                        gameScreen.blit(self.body_tr, block_rect)
+                    elif previous_block.x==1 and next_block.y==1 or previous_block.y==1 and next_block.x==1:
+                        gameScreen.blit(self.body_br, block_rect)
 
     def update_snake_head(self):
         head_position=self.body[1]-self.body[0]

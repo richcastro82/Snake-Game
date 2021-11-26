@@ -1,9 +1,12 @@
-# Richard Castro
-# November 2021
-# Snake game built with PyGame library
-# I had to learn pygame to build the Conway's game of life
-# and now I am just creating a few games with what I learned
-# before I literally forget it all.
+#######################################################################
+# Richard Castro                                                    ###
+# November 2021                                                     ###
+# Snake game built with PyGame library                              ###
+# I had to learn pygame to build the Conway's game of life          ###
+# and now I am just creating a few games with what I learned        ###
+# before I literally forget it all.                                 ###
+#######################################################################
+
 
 ###########################
 ##  FUTURE UPGRADES:     ##
@@ -12,7 +15,11 @@
 ##  3. PAUSE SCREEN      ##
 ##  4. SNAKE LIVES       ##
 ##  5. TOP SCORE CHART   ##
+##  6. SOUND EFFECTS     ##
+##  7. GAME MODES        ##
 ###########################
+
+
 
 # IMPORT LIBRARIES
 import pygame, sys, os
@@ -21,6 +28,8 @@ pygame.init()
 clock=pygame.time.Clock()
 game_font=pygame.font.Font('fonts/cotton.ttf', 24)
 GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
+
+
 # GAME CLASS
 class RULES:
     def __init__(self):
@@ -69,9 +78,7 @@ class RULES:
                     if col % 2!=0:
                         grass_rect=pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)
                         pygame.draw.rect(gameScreen,grass_color,grass_rect)
-    #
-    # def game_over():
-    #     pygame.quit()
+
 
 
 
@@ -125,6 +132,8 @@ def game_run():
             main_game.draw_elements()
             pygame.display.update()
             clock.tick(fps)
+
+
 
 
 # Initialize the game
