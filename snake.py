@@ -68,9 +68,24 @@ game_font=pygame.font.Font('fonts/cotton.ttf', 24)
 screenUpdate=pygame.USEREVENT
 pygame.time.set_timer(screenUpdate, 150)
 main_game=RULES()
-
+START_BG=pygame.image.load('Images/snake_bg.jpg')
 
 def main():
+
+    # Pregame Screen Loop
+    start_game=False
+    while (start_game==False):
+        GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
+        START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
+        for event in pygame.event.get():
+            if event.type==pygame.KEYUP:
+                if event.key==pygame.K_SPACE:
+                    start_game=True
+        gameScreen.blit(START_BG,(0,0))
+        gameScreen.blit(START_BUTTON,(120,650))
+        pygame.display.flip()
+        # -------------------
+
     # game loop exits
     while True:
         gameScreen.fill((147,205,58))
