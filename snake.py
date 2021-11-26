@@ -5,19 +5,22 @@
 # and now I am just creating a few games with what I learned
 # before I literally forget it all.
 
-#########################
-# FUTURE UPGRADES:     ##
-# 1. POISON FRUIT      ##
-# 2. OBSTICLES         ##
-# 3. PAUSE SCREEN      ##
-# 4. SNAKE LIVES       ##
-# 5. TOP SCORE CHART   ##
-#########################
+###########################
+##  FUTURE UPGRADES:     ##
+##  1. POISON FRUIT      ##
+##  2. OBSTICLES         ##
+##  3. PAUSE SCREEN      ##
+##  4. SNAKE LIVES       ##
+##  5. TOP SCORE CHART   ##
+###########################
 
 # IMPORT LIBRARIES
 import pygame, sys, os
 from elements import *
-
+pygame.init()
+clock=pygame.time.Clock()
+game_font=pygame.font.Font('fonts/cotton.ttf', 24)
+GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
 # GAME CLASS
 class RULES:
     def __init__(self):
@@ -51,7 +54,7 @@ class RULES:
 
     def check_fail(self):
         if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
-            pygame.quit()
+            self.snake.game_over()
 
     def grass(self):
         grass_color=(160,210,60)
@@ -66,62 +69,65 @@ class RULES:
                     if col % 2!=0:
                         grass_rect=pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)
                         pygame.draw.rect(gameScreen,grass_color,grass_rect)
+    #
+    # def game_over():
+    #     pygame.quit()
+
+
+def home_screen():
+    # PERGAME SCREEN LOOP
+        START_BG=pygame.image.load('assets/snake_bg.jpg')
+        START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
+        QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
+        start_game=False
+        while (start_game==False):
+            gameScreen.blit(START_BG,(0,0))
+            gameScreen.blit(START_BUTTON,(120,650))
+            gameScreen.blit(QUIT_BUTTON,(120,700))
+            pygame.display.flip()
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+                if event.type==pygame.KEYUP:
+                    if event.key==pygame.K_SPACE:
+                        start_game=True
+                    if event.key==pygame.K_RETURN:
+                        start_game=True
+                    if event.key==pygame.K_ESCAPE:
+                        pygame.quit()
+
+def game_run():
+        main_game=RULES()
+    # GAME LOOP
+        while True:
+            # User input and game controls
+            for event in pygame.event.get():
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+                if event.type==screenUpdate:
+                    main_game.update()
+                if event.type==pygame.KEYDOWN:
+                    if event.key==pygame.K_UP:
+                        main_game.snake.direction=Vector2(0,-1)
+                    if event.key==pygame.K_DOWN:
+                        main_game.snake.direction=Vector2(0,1)
+                    if event.key==pygame.K_RIGHT:
+                        main_game.snake.direction=Vector2(1,0)
+                    if event.key==pygame.K_LEFT:
+                        main_game.snake.direction=Vector2(-1,0)
+            gameScreen.fill((150,200,60))
+            main_game.draw_elements()
+            pygame.display.update()
+            clock.tick(fps)
+
 
 # Initialize the game
-pygame.init()
-clock=pygame.time.Clock()
-game_font=pygame.font.Font('fonts/cotton.ttf', 24)
-GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
-START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
-QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
 screenUpdate=pygame.USEREVENT
 pygame.time.set_timer(screenUpdate, 150)
-main_game=RULES()
-START_BG=pygame.image.load('assets/snake_bg.jpg')
-
 # Main Game Loop,
 def main():
-
-# PERGAME SCREEN LOOP
-    start_game=False
-    while (start_game==False):
-        gameScreen.blit(START_BG,(0,0))
-        gameScreen.blit(START_BUTTON,(120,650))
-        gameScreen.blit(QUIT_BUTTON,(120,700))
-        pygame.display.flip()
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                pygame.quit()
-            if event.type==pygame.KEYUP:
-                if event.key==pygame.K_SPACE:
-                    start_game=True
-                if event.key==pygame.K_RETURN:
-                    start_game=True
-                if event.key==pygame.K_ESCAPE:
-                    pygame.quit()
-
-# GAME LOOP
-    while True:
-        gameScreen.fill((147,205,58))
-        main_game.draw_elements()
-        pygame.display.update()
-        clock.tick(fps)
-
-        # User input and game controls
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                pygame.quit()
-            if event.type==screenUpdate:
-                main_game.update()
-            if event.type==pygame.KEYDOWN:
-                if event.key==pygame.K_UP:
-                    main_game.snake.direction=Vector2(0,-1)
-                if event.key==pygame.K_DOWN:
-                    main_game.snake.direction=Vector2(0,1)
-                if event.key==pygame.K_RIGHT:
-                    main_game.snake.direction=Vector2(1,0)
-                if event.key==pygame.K_LEFT:
-                    main_game.snake.direction=Vector2(-1,0)
+    home_screen()
+    game_run()
 
 if __name__ == "__main__":
     main()
