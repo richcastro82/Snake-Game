@@ -74,14 +74,19 @@ class RULES:
     #     pygame.quit()
 
 
+
+
+
 def home_screen():
     # PERGAME SCREEN LOOP
+        START_BUT=BUTTON((0,255,0), 120,650,240,100, "start game" )
         START_BG=pygame.image.load('assets/snake_bg.jpg')
         START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
         QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
         start_game=False
         while (start_game==False):
             gameScreen.blit(START_BG,(0,0))
+            START_BUT.draw(gameScreen)
             gameScreen.blit(START_BUTTON,(120,650))
             gameScreen.blit(QUIT_BUTTON,(120,700))
             pygame.display.flip()
@@ -106,7 +111,7 @@ def game_run():
                     pygame.quit()
                 if event.type==screenUpdate:
                     main_game.update()
-                if event.type==pygame.KEYDOWN:
+                if event.type==pygame.KEYDOWN or event.type==pygame.KEYUP:
                     if event.key==pygame.K_UP:
                         main_game.snake.direction=Vector2(0,-1)
                     if event.key==pygame.K_DOWN:
