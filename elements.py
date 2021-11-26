@@ -4,8 +4,8 @@ cell_size=40
 cell_number=20
 fps=30
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
-apple=pygame.image.load('images/apple.png').convert_alpha()
-poison=pygame.image.load('images/poison.png').convert_alpha()
+apple=pygame.image.load('assets/apple.png').convert_alpha()
+poison=pygame.image.load('assets/poison.png').convert_alpha()
 
 # Fruit class
 class FRUIT:
@@ -35,20 +35,20 @@ class SNAKE:
         self.body=[Vector2(4,4),Vector2(3,4),Vector2(2,4)]
         self.direction=Vector2(1,0)
         self.new_block=False
-        self.head_up=pygame.image.load('Images/head_up.png').convert_alpha()
-        self.head_down=pygame.image.load('Images/head_down.png').convert_alpha()
-        self.head_left=pygame.image.load('Images/head_left.png').convert_alpha()
-        self.head_right=pygame.image.load('Images/head_right.png').convert_alpha()
-        self.tail_up=pygame.image.load('Images/tail_up.png').convert_alpha()
-        self.tail_down=pygame.image.load('Images/tail_down.png').convert_alpha()
-        self.tail_left=pygame.image.load('Images/tail_left.png').convert_alpha()
-        self.tail_right=pygame.image.load('Images/tail_right.png').convert_alpha()
-        self.body_vert=pygame.image.load('Images/body_vertical.png').convert_alpha()
-        self.body_hori=pygame.image.load('Images/body_horizontal.png').convert_alpha()
-        self.body_tr=pygame.image.load('Images/body_tr.png').convert_alpha()
-        self.body_tl=pygame.image.load('Images/body_tl.png').convert_alpha()
-        self.body_br=pygame.image.load('Images/body_br.png').convert_alpha()
-        self.body_bl=pygame.image.load('Images/body_bl.png').convert_alpha()
+        self.head_up=pygame.image.load('assets/head_up.png').convert_alpha()
+        self.head_down=pygame.image.load('assets/head_down.png').convert_alpha()
+        self.head_left=pygame.image.load('assets/head_left.png').convert_alpha()
+        self.head_right=pygame.image.load('assets/head_right.png').convert_alpha()
+        self.tail_up=pygame.image.load('assets/tail_up.png').convert_alpha()
+        self.tail_down=pygame.image.load('assets/tail_down.png').convert_alpha()
+        self.tail_left=pygame.image.load('assets/tail_left.png').convert_alpha()
+        self.tail_right=pygame.image.load('assets/tail_right.png').convert_alpha()
+        self.body_vert=pygame.image.load('assets/body_vertical.png').convert_alpha()
+        self.body_hori=pygame.image.load('assets/body_horizontal.png').convert_alpha()
+        self.body_tr=pygame.image.load('assets/body_tr.png').convert_alpha()
+        self.body_tl=pygame.image.load('assets/body_tl.png').convert_alpha()
+        self.body_br=pygame.image.load('assets/body_br.png').convert_alpha()
+        self.body_bl=pygame.image.load('assets/body_bl.png').convert_alpha()
 
     def draw_snake(self):
         self.update_snake_head()
@@ -70,8 +70,6 @@ class SNAKE:
                     gameScreen.blit(self.body_vert, block_rect)
                 elif previous_block.y==next_block.y:
                     gameScreen.blit(self.body_hori, block_rect)
-
-
 
     def update_snake_head(self):
         head_position=self.body[1]-self.body[0]

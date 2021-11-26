@@ -5,7 +5,6 @@
 # and now I am just creating a few games with what I learned
 # before I literally forget it all.
 
-
 #########################
 # FUTURE UPGRADES:     ##
 # 1. POISON FRUIT      ##
@@ -15,11 +14,9 @@
 # 5. TOP SCORE CHART   ##
 #########################
 
-
 # IMPORT LIBRARIES
 import pygame, sys, os
 from elements import *
-
 
 # GAME CLASS
 class RULES:
@@ -70,8 +67,6 @@ class RULES:
                         grass_rect=pygame.Rect(col*cell_size,row*cell_size,cell_size,cell_size)
                         pygame.draw.rect(gameScreen,grass_color,grass_rect)
 
-
-
 # Initialize the game
 pygame.init()
 clock=pygame.time.Clock()
@@ -82,8 +77,7 @@ QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
 screenUpdate=pygame.USEREVENT
 pygame.time.set_timer(screenUpdate, 150)
 main_game=RULES()
-START_BG=pygame.image.load('Images/snake_bg.jpg')
-
+START_BG=pygame.image.load('assets/snake_bg.jpg')
 
 # Main Game Loop,
 def main():
@@ -105,7 +99,6 @@ def main():
                     start_game=True
                 if event.key==pygame.K_ESCAPE:
                     pygame.quit()
-
 
 # GAME LOOP
     while True:
