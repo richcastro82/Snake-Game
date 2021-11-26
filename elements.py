@@ -20,11 +20,11 @@ class BUTTON:
     def draw(self, gameScreen, outline=None):
         if outline:
             pygame.draw.rect(gameScreen, outline, (self.x-2, self.y-2, self.width+4, self.height+4), 0)
-        pygame.draw.rect(gameScreen,(0,0,0), (self.x, self.y, self.width, self.height), 0)
+        pygame.draw.rect(gameScreen,(160,210,60), (self.x, self.y, self.width, self.height), 0)
 
         if self.text !="":
-            font=pygame.font.SysFont('comicsans', 60)
-            text=font.render(self.text, 1, (0,0,0))
+            font=pygame.font.SysFont('comicsans', 20)
+            text=font.render(self.text, 1, (100,50,20))
             gameScreen.blit(text, (self.x+(self.width/2-text.get_width()/2), self.y+(self.height/2-text.get_height()/2) ))
     def isOver(self, pos):
         if pos[0]>self.x and pos[0]<self.x+self.width:

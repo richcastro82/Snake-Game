@@ -79,27 +79,28 @@ class RULES:
 
 def home_screen():
     # PERGAME SCREEN LOOP
-        START_BUT=BUTTON((0,255,0), 120,650,240,100, "start game" )
+        START_BUT=BUTTON((0,255,0), 120,600,175,50, "Start Game")
+        QUIT_BUT=BUTTON((0,255,0), 120,660,175,50,"Quit Game")
         START_BG=pygame.image.load('assets/snake_bg.jpg')
-        START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
-        QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
+        # START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
+        # QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
         start_game=False
         while (start_game==False):
             gameScreen.blit(START_BG,(0,0))
             START_BUT.draw(gameScreen)
-            gameScreen.blit(START_BUTTON,(120,650))
-            gameScreen.blit(QUIT_BUTTON,(120,700))
+            QUIT_BUT.draw(gameScreen)
+            # gameScreen.blit(START_BUTTON,(120,650))
+            # gameScreen.blit(QUIT_BUTTON,(120,700))
             pygame.display.flip()
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
-                    pygame.quit()
-                if event.type==pygame.KEYUP:
-                    if event.key==pygame.K_SPACE:
+                pos=pygame.mouse.get_pos()
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    if START_BUT.isOver(pos):
                         start_game=True
-                    if event.key==pygame.K_RETURN:
-                        start_game=True
-                    if event.key==pygame.K_ESCAPE:
+                    if QUIT_BUT.isOver(pos):
                         pygame.quit()
+                # if event.type==pygame.QUIT:
+                #     pygame.quit()
 
 def game_run():
         main_game=RULES()
