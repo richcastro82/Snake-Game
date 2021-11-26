@@ -5,7 +5,7 @@ cell_number=20
 fps=30
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
 apple=pygame.image.load('images/apple.png').convert_alpha()
-
+poison=pygame.image.load('images/poison.png').convert_alpha()
 
 # Fruit class
 class FRUIT:
@@ -24,6 +24,15 @@ class FRUIT:
         self.x=random.randint(0,cell_number-1)
         self.y=random.randint(0,cell_number-1)
         self.pos=Vector2(self.x, self.y)
+
+
+# class POISON:
+#     def __init__(self):
+#
+#     def draw_poison(self):
+#
+#     def random_poison(self):
+#
 
 # Snake class
 class SNAKE:
