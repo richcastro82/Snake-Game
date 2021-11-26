@@ -5,31 +5,45 @@
 # and now I am just creating a few games with what I learned
 # before I literally forget it all.
 
-import pygame, sys, os, random
-from pygame.math import Vector2
 
+#########################
+# FUTURE UPGRADES:     ##
+# 1. POISON FRUIT      ##
+# 2. OBSTICLES         ##
+# 3. PAUSE SCREEN      ##
+# 4. SNAKE LIVES       ##
+# 5. TOP SCORE CHART   ##
+#########################
+
+
+# IMPORT LIBRARIES
+import pygame, sys, os
 from elements import *
-# Game class
+
+
+# GAME CLASS
 class RULES:
     def __init__(self):
         self.fruit=FRUIT()
         self.snake=SNAKE()
+
     def update(self):
         self.snake.move_snake()
         self.snackTime()
-
         self.check_fail()
-        # self.snake.check_fail()
 
     def draw_elements(self):
             self.grass()
             self.fruit.draw_fruit()
             self.snake.draw_snake()
             self.score()
+
     def snackTime(self):
         if self.fruit.pos == self.snake.body[0]:
+            # RANDONLY PICK FRUIT OR POISON
             self.fruit.randonize()
             self.snake.grow()
+
     def score(self):
         score_text= str(len(self.snake.body)-3)
         score_display=game_font.render(score_text, True, (200,40,40))
@@ -39,12 +53,8 @@ class RULES:
         gameScreen.blit(score_display, score_rect)
 
     def check_fail(self):
-        # 1. check if snake head has hit the border edge
         if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
             pygame.quit()
-        # 2. check if snake head has hit the snake body
-
-
 
     def grass(self):
         grass_color=(160,210,60)
@@ -61,32 +71,43 @@ class RULES:
                         pygame.draw.rect(gameScreen,grass_color,grass_rect)
 
 
+
 # Initialize the game
 pygame.init()
 clock=pygame.time.Clock()
 game_font=pygame.font.Font('fonts/cotton.ttf', 24)
+GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
+START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
+QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
 screenUpdate=pygame.USEREVENT
 pygame.time.set_timer(screenUpdate, 150)
 main_game=RULES()
 START_BG=pygame.image.load('Images/snake_bg.jpg')
 
+
+# Main Game Loop,
 def main():
 
-    # Pregame Screen Loop
+# PERGAME SCREEN LOOP
     start_game=False
     while (start_game==False):
-        GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
-        START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
+        gameScreen.blit(START_BG,(0,0))
+        gameScreen.blit(START_BUTTON,(120,650))
+        gameScreen.blit(QUIT_BUTTON,(120,700))
+        pygame.display.flip()
         for event in pygame.event.get():
+            if event.type==pygame.QUIT:
+                pygame.quit()
             if event.type==pygame.KEYUP:
                 if event.key==pygame.K_SPACE:
                     start_game=True
-        gameScreen.blit(START_BG,(0,0))
-        gameScreen.blit(START_BUTTON,(120,650))
-        pygame.display.flip()
-        # -------------------
+                if event.key==pygame.K_RETURN:
+                    start_game=True
+                if event.key==pygame.K_ESCAPE:
+                    pygame.quit()
 
-    # game loop exits
+
+# GAME LOOP
     while True:
         gameScreen.fill((147,205,58))
         main_game.draw_elements()

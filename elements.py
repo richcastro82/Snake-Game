@@ -18,21 +18,15 @@ class FRUIT:
     def draw_fruit(self):
         fruit_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,cell_size,cell_size)
         gameScreen.blit(apple,fruit_rect)
-        # pygame.draw.rect(gameScreen,(0,0,0), fruit_rect)
+
+    def draw_poison(self):
+        poison_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size, cell_size, cell_size)
+        gameScreen.blit(poison, poison_rect)
 
     def randonize(self):
         self.x=random.randint(0,cell_number-1)
         self.y=random.randint(0,cell_number-1)
         self.pos=Vector2(self.x, self.y)
-
-
-# class POISON:
-#     def __init__(self):
-#
-#     def draw_poison(self):
-#
-#     def random_poison(self):
-#
 
 # Snake class
 class SNAKE:
