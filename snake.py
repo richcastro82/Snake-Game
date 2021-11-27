@@ -86,6 +86,8 @@ class RULES:
 
 def home_screen():
     # PERGAME SCREEN LOOP
+        pygame.mixer.music.load("assets/snake_intro.wav")
+        pygame.mixer.music.play(-1)
         START_BUT=BUTTON((0,255,0), 120,600,175,50, "Start Game")
         QUIT_BUT=BUTTON((0,255,0), 120,660,175,50,"Quit Game")
         START_BG=pygame.image.load('assets/snake_bg.jpg')
@@ -111,6 +113,7 @@ def home_screen():
 
 def game_run():
         main_game=RULES()
+        pygame.mixer.music.stop()
     # GAME LOOP
         while True:
             # User input and game controls
