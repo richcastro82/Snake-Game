@@ -28,7 +28,7 @@ pygame.init()
 clock=pygame.time.Clock()
 game_font=pygame.font.Font('fonts/cotton.ttf', 24)
 GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
-
+munch_sound=pygame.mixer.Sound("assets/munch.wav")
 
 # GAME CLASS
 class RULES:
@@ -50,6 +50,7 @@ class RULES:
     def snackTime(self):
         if self.fruit.pos == self.snake.body[0]:
             # RANDONLY PICK FRUIT OR POISON
+            pygame.mixer.Sound.play(munch_sound)
             self.fruit.randonize()
             self.snake.grow()
 
@@ -81,15 +82,12 @@ class RULES:
 
 
 
-
-
-
 def home_screen():
     # PERGAME SCREEN LOOP
         pygame.mixer.music.load("assets/snake_intro.wav")
         pygame.mixer.music.play(-1)
-        START_BUT=BUTTON((0,255,0), 120,600,175,50, "Start Game")
-        QUIT_BUT=BUTTON((0,255,0), 120,660,175,50,"Quit Game")
+        START_BUT=BUTTON((0,255,0), 320,380,175,50, "Start Game")
+        QUIT_BUT=BUTTON((0,255,0), 320,460,175,50,"Quit Game")
         START_BG=pygame.image.load('assets/snake_bg.jpg')
         # START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
         # QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
