@@ -10,13 +10,13 @@
 
 ###########################
 ##  FUTURE UPGRADES:     ##
-##  1. POISON FRUIT      ##
-##  2. OBSTICLES         ##
+##  1. POISON FRUIT      ##  WORKING
+##  2. OBSTICLES         ##  WORKING
 ##  3. PAUSE SCREEN      ##
-##  4. SNAKE LIVES       ##
-##  5. TOP SCORE CHART   ##
-##  6. SOUND EFFECTS     ##
-##  7. GAME MODES        ##
+##  4. SNAKE LIVES       ##  REMOVING FROM LIST
+##  5. TOP SCORE CHART   ##  WORKING
+##  6. SOUND EFFECTS     ##  DONE
+##  7. GAME MODES        ##  WORKING
 ###########################
 
 
@@ -29,6 +29,14 @@ clock=pygame.time.Clock()
 game_font=pygame.font.Font('fonts/cotton.ttf', 24)
 GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
 munch_sound=pygame.mixer.Sound("assets/munch.wav")
+
+# This will be for the game modes
+Easy=200
+Medium=150
+Hard=110
+
+# This needs to grab a csv file and display the top score
+top_score="3200"
 
 # GAME CLASS
 class RULES:
@@ -81,14 +89,14 @@ class RULES:
                         pygame.draw.rect(gameScreen,grass_color,grass_rect)
 
 
-
 def home_screen():
     # PERGAME SCREEN LOOP
         pygame.mixer.music.load("assets/snake_intro.wav")
         pygame.mixer.music.play(-1)
+        START_BG=pygame.image.load('assets/snake_bg.jpg')
         START_BUT=BUTTON((0,255,0), 320,380,175,50, "Start Game")
         QUIT_BUT=BUTTON((0,255,0), 320,460,175,50,"Quit Game")
-        START_BG=pygame.image.load('assets/snake_bg.jpg')
+        TOP_SCORE=BUTTON((255,0,0), 10, 10, 175, 50, "3200 pts")
         # START_BUTTON=GAME_FONT.render("Start Game", True, (255, 255, 255))
         # QUIT_BUTTON=GAME_FONT.render("Quit Game", True, (255,255,255))
         start_game=False
@@ -96,6 +104,7 @@ def home_screen():
             gameScreen.blit(START_BG,(0,0))
             START_BUT.draw(gameScreen)
             QUIT_BUT.draw(gameScreen)
+            TOP_SCORE.draw(gameScreen)
             # gameScreen.blit(START_BUTTON,(120,650))
             # gameScreen.blit(QUIT_BUTTON,(120,700))
             pygame.display.flip()
@@ -106,18 +115,23 @@ def home_screen():
                         start_game=True
                     if QUIT_BUT.isOver(pos):
                         pygame.quit()
-                # if event.type==pygame.QUIT:
-                #     pygame.quit()
+                        sys.exit()
+                if event.type==pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
 
 def game_run():
         main_game=RULES()
         pygame.mixer.music.stop()
+        screenUpdate=pygame.USEREVENT
+        pygame.time.set_timer(screenUpdate, game_speed)
     # GAME LOOP
         while True:
             # User input and game controls
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
+                    sys.exit()
                 if event.type==screenUpdate:
                     main_game.update()
                 if event.type==pygame.KEYDOWN or event.type==pygame.KEYUP:
@@ -137,9 +151,9 @@ def game_run():
 
 
 
+
 # Initialize the game
-screenUpdate=pygame.USEREVENT
-pygame.time.set_timer(screenUpdate, 150)
+
 # Main Game Loop,
 def main():
     home_screen()
