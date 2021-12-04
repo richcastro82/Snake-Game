@@ -3,10 +3,11 @@ from pygame.math import Vector2
 cell_size=40
 cell_number=20
 fps=30
+
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
 apple=pygame.image.load('assets/apple.png').convert_alpha()
 poison=pygame.image.load('assets/poison.png').convert_alpha()
-
+Crate=pygame.image.load("assets/Crate.png")
 # Button Class
 class BUTTON:
     def __init__(self, color, x, y, width, height, text=""):
@@ -56,13 +57,13 @@ class FRUIT:
 class OBSTICLES:
     # Initialize the class
     def __init__(self):
-        self.x=random.randint(0,cell_number-1)
-        self.y=random.randint(0,cell_number-1)
+        self.x=random.randint(0,cell_number-2)
+        self.y=random.randint(0,cell_number-2)
         self.pos=Vector2(self.x, self.y)
 
-    def draw_obs(self):
-        fruit_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,cell_size,cell_size)
-        gameScreen.blit(apple,fruit_rect)
+    def draw_obs(self, obs_img):
+        obsticle_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,80,80)
+        gameScreen.blit(obs_img,obsticle_rect)
 
     def randonize(self):
         self.x=random.randint(0,cell_number-1)

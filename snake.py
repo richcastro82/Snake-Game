@@ -19,7 +19,8 @@
 ##  7. GAME MODES        ##  WORKING
 ###########################
 
-
+# obsticle size
+# snake head => obsticle location and <=osticle location +obsticle size
 
 # IMPORT LIBRARIES
 import pygame, sys, os
@@ -29,12 +30,12 @@ clock=pygame.time.Clock()
 game_font=pygame.font.Font('fonts/cotton.ttf', 24)
 GAME_FONT=pygame.font.SysFont("Britannic Bold", 40)
 munch_sound=pygame.mixer.Sound("assets/munch.wav")
-
+game_speed=150
 # This will be for the game modes
 Easy=200
 Medium=150
 Hard=110
-
+score_multiplier=10
 # This needs to grab a csv file and display the top score
 top_score="3200"
 
@@ -43,6 +44,8 @@ class RULES:
     def __init__(self):
         self.fruit=FRUIT()
         self.snake=SNAKE()
+        self.obsticle=OBSTICLES()
+
 
     def update(self):
         self.snake.move_snake()
@@ -53,6 +56,7 @@ class RULES:
             self.grass()
             self.fruit.draw_fruit()
             self.snake.draw_snake()
+            self.obsticle.draw_obs(Crate)
             self.score()
 
     def snackTime(self):
@@ -73,6 +77,10 @@ class RULES:
     def check_fail(self):
         if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
             self.snake.game_over()
+        if self.snake.body[0].x == self.obsticle.x:
+            if self.snake.body[0].y == self.obsticle.y:
+                self.snake.game_over()
+
 
     def grass(self):
         grass_color=(160,210,60)
@@ -120,9 +128,12 @@ def home_screen():
                     pygame.quit()
                     sys.exit()
 
+
+
 def game_run():
+
         main_game=RULES()
-        pygame.mixer.music.stop()
+        # pygame.mixer.music.stop()
         screenUpdate=pygame.USEREVENT
         pygame.time.set_timer(screenUpdate, game_speed)
     # GAME LOOP
@@ -156,7 +167,7 @@ def game_run():
 
 # Main Game Loop,
 def main():
-    home_screen()
+    # home_screen()
     game_run()
 
 if __name__ == "__main__":
