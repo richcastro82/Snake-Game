@@ -53,22 +53,35 @@ class FRUIT:
         self.y=random.randint(0,cell_number-1)
         self.pos=Vector2(self.x, self.y)
 
-# Fruit class
+
+
+
 class OBSTICLES:
     # Initialize the class
     def __init__(self):
-        self.x=random.randint(0,cell_number-2)
-        self.y=random.randint(0,cell_number-2)
-        self.pos=Vector2(self.x, self.y)
+        self.x=cell_size*2
+        self.y=cell_size*4
+        self.width=40
+        self.height=40
+        # self.x=random.randint(0,cell_number-2)
+        # self.y=random.randint(0,cell_number-2)
+        # self.pos=Vector2(self.x, self.y)
 
     def draw_obs(self, obs_img):
-        obsticle_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,80,80)
-        gameScreen.blit(obs_img,obsticle_rect)
+        obsRect=pygame.Rect(self.x, self.y, self.width, self.height)
+        gameScreen.blit(obs_img, obsRect)
+        # obsticle_rect=pygame.Rect(self.pos.x*40, self.pos.y*40,80,80)
+        # gameScreen.blit(obs_img,obsticle_rect)
+    #
+    # def randonize(self):
+    #     self.x=random.randint(0,cell_number-2)
+    #     self.y=random.randint(0,cell_number-2)
+    #     self.pos=Vector2(self.x, self.y)
 
-    def randonize(self):
-        self.x=random.randint(0,cell_number-1)
-        self.y=random.randint(0,cell_number-1)
-        self.pos=Vector2(self.x, self.y)
+
+
+
+
 
 # Snake class
 class SNAKE:

@@ -77,9 +77,9 @@ class RULES:
     def check_fail(self):
         if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
             self.snake.game_over()
-        if self.snake.body[0].x == self.obsticle.x:
-            if self.snake.body[0].y == self.obsticle.y:
-                self.snake.game_over()
+        if self.snake.body[0].x==self.obsticle.x and self.snake.body[0].y==self.obsticle.y:
+                pygame.quit()
+                sys.exit()
 
 
     def grass(self):
@@ -147,13 +147,17 @@ def game_run():
                     main_game.update()
                 if event.type==pygame.KEYDOWN or event.type==pygame.KEYUP:
                     if event.key==pygame.K_UP:
-                        main_game.snake.direction=Vector2(0,-1)
+                        if main_game.snake.direction.y !=1:
+                            main_game.snake.direction=Vector2(0,-1)
                     if event.key==pygame.K_DOWN:
-                        main_game.snake.direction=Vector2(0,1)
+                        if main_game.snake.direction.y !=-1:
+                            main_game.snake.direction=Vector2(0,1)
                     if event.key==pygame.K_RIGHT:
-                        main_game.snake.direction=Vector2(1,0)
+                        if main_game.snake.direction.x !=-1:
+                            main_game.snake.direction=Vector2(1,0)
                     if event.key==pygame.K_LEFT:
-                        main_game.snake.direction=Vector2(-1,0)
+                        if main_game.snake.direction.x !=1:
+                            main_game.snake.direction=Vector2(-1,0)
             gameScreen.fill((150,200,60))
             main_game.draw_elements()
             pygame.display.update()
