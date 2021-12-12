@@ -48,7 +48,7 @@ class FRUIT:
         poison_rect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size, cell_size, cell_size)
         gameScreen.blit(poison, poison_rect)
 
-    def randonize(self):
+    def randomize(self):
         self.x=random.randint(0,cell_number-1)
         self.y=random.randint(0,cell_number-1)
         self.pos=Vector2(self.x, self.y)
@@ -59,21 +59,21 @@ class FRUIT:
 class OBSTICLES:
     # Initialize the class
     def __init__(self):
-        self.x=cell_size*2
-        self.y=cell_size*4
+        self.x=random.randint(0,cell_number-1)
+        self.y=random.randint(0,cell_number-1)
         self.width=40
         self.height=40
         # self.x=random.randint(0,cell_number-2)
         # self.y=random.randint(0,cell_number-2)
-        # self.pos=Vector2(self.x, self.y)
+        self.pos=Vector2(self.x, self.y)
 
     def draw_obs(self, obs_img):
-        obsRect=pygame.Rect(self.x, self.y, self.width, self.height)
+        obsRect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,cell_size*2,cell_size*2)
         gameScreen.blit(obs_img, obsRect)
         # obsticle_rect=pygame.Rect(self.pos.x*40, self.pos.y*40,80,80)
         # gameScreen.blit(obs_img,obsticle_rect)
-    #
-    # def randonize(self):
+
+    # def randomize(self):
     #     self.x=random.randint(0,cell_number-2)
     #     self.y=random.randint(0,cell_number-2)
     #     self.pos=Vector2(self.x, self.y)

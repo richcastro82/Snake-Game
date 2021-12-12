@@ -63,7 +63,8 @@ class RULES:
         if self.fruit.pos == self.snake.body[0]:
             # RANDONLY PICK FRUIT OR POISON
             pygame.mixer.Sound.play(munch_sound)
-            self.fruit.randonize()
+            self.fruit.randomize()
+            # self.obsticle.randomize()
             self.snake.grow()
 
     def score(self):
@@ -75,12 +76,10 @@ class RULES:
         gameScreen.blit(score_display, score_rect)
 
     def check_fail(self):
-        if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
-            self.snake.game_over()
-        if self.snake.body[0].x==self.obsticle.x and self.snake.body[0].y==self.obsticle.y:
-                pygame.quit()
-                sys.exit()
-
+        # if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
+        #     self.snake.game_over()
+        if self.snake.body[0] == self.obsticle.pos:
+            pygame.quit()
 
     def grass(self):
         grass_color=(160,210,60)
