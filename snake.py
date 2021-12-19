@@ -10,13 +10,13 @@
 
 ###########################
 ##  FUTURE UPGRADES:     ##
-##  1. POISON FRUIT      ##  WORKING
-##  2. OBSTICLES         ##  WORKING
+##  1. POISON FRUIT      ##
+##  2. OBSTICLES         ##
 ##  3. PAUSE SCREEN      ##
-##  4. SNAKE LIVES       ##  REMOVING FROM LIST
-##  5. TOP SCORE CHART   ##  WORKING
-##  6. SOUND EFFECTS     ##  DONE
-##  7. GAME MODES        ##  WORKING
+##  4. SNAKE LIVES       ##
+##  5. TOP SCORE CHART   ##
+##  6. SOUND EFFECTS     ##
+##  7. GAME MODES        ##
 ###########################
 
 # obsticle size
@@ -45,6 +45,7 @@ class RULES:
         self.fruit=FRUIT()
         self.snake=SNAKE()
         self.obsticle=OBSTICLES()
+        self.obsticle2=OBSTICLES()
 
 
     def update(self):
@@ -57,6 +58,7 @@ class RULES:
             self.fruit.draw_fruit()
             self.snake.draw_snake()
             self.obsticle.draw_obs(Crate)
+            self.obsticle2.draw_obs(Crate)
             self.score()
 
     def snackTime(self):
@@ -76,9 +78,12 @@ class RULES:
         gameScreen.blit(score_display, score_rect)
 
     def check_fail(self):
-        # if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
-        #     self.snake.game_over()
+        if not 0<=self.snake.body[0].x < cell_number or not 0<=self.snake.body[0].y< cell_number:
+            self.snake.game_over()
         if self.snake.body[0] == self.obsticle.pos:
+            pygame.quit()
+
+        if self.snake.body[0] == self.obsticle2.pos:
             pygame.quit()
 
     def grass(self):
@@ -132,7 +137,7 @@ def home_screen():
 def game_run():
 
         main_game=RULES()
-        # pygame.mixer.music.stop()
+        pygame.mixer.music.stop()
         screenUpdate=pygame.USEREVENT
         pygame.time.set_timer(screenUpdate, game_speed)
     # GAME LOOP
@@ -170,7 +175,7 @@ def game_run():
 
 # Main Game Loop,
 def main():
-    # home_screen()
+    home_screen()
     game_run()
 
 if __name__ == "__main__":

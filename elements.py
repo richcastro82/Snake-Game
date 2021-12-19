@@ -7,7 +7,7 @@ fps=30
 gameScreen=pygame.display.set_mode((cell_number*cell_size, cell_number*cell_size))
 apple=pygame.image.load('assets/apple.png').convert_alpha()
 poison=pygame.image.load('assets/poison.png').convert_alpha()
-Crate=pygame.image.load("assets/Crate.png")
+Crate=pygame.transform.scale(pygame.image.load("assets/Crate.png"),[40,40])
 # Button Class
 class BUTTON:
     def __init__(self, color, x, y, width, height, text=""):
@@ -59,8 +59,8 @@ class FRUIT:
 class OBSTICLES:
     # Initialize the class
     def __init__(self):
-        self.x=random.randint(0,cell_number-1)
-        self.y=random.randint(0,cell_number-1)
+        self.x=random.randint(0,cell_number-2)
+        self.y=random.randint(0,cell_number-2)
         self.width=40
         self.height=40
         # self.x=random.randint(0,cell_number-2)
@@ -68,7 +68,8 @@ class OBSTICLES:
         self.pos=Vector2(self.x, self.y)
 
     def draw_obs(self, obs_img):
-        obsRect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,cell_size*2,cell_size*2)
+        obsRect=pygame.Rect(self.pos.x*cell_size, self.pos.y*cell_size,cell_size+4,cell_size+4)
+        # obsRect=pygame.Rect(40,40,40,40)
         gameScreen.blit(obs_img, obsRect)
         # obsticle_rect=pygame.Rect(self.pos.x*40, self.pos.y*40,80,80)
         # gameScreen.blit(obs_img,obsticle_rect)
